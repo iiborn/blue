@@ -18,23 +18,23 @@ local function check_member_super(cb_extra, success, result)
         set_owner = member_id ,
         settings = {
           set_name = string.gsub(msg.to.title, '_', ' '),
-		  lock_arabic = 'no',
-		  lock_link = "no",
-          flood = 'yes',
-		  lock_spam = 'yes',
-		  lock_sticker = 'no',
-		  member = 'no',
-		  public = 'no',
-		  lock_rtl = 'no',
-		  lock_tgservice = 'no',
-		  lock_contacts = 'no',
-		  lock_tag = 'no',
-		  lock_webpage = 'no',
-		  lock_fwd = 'no',
-		  lock_emoji = 'no',
-		  lock_eng = 'no',
-		  strict = 'no',
-		  lock_badw = 'no'
+		  lock_arabic = 'Disable',
+		  lock_link = "Disable",
+          flood = 'Enable',
+		  lock_spam = 'Enable',
+		  lock_sticker = 'Disable',
+		  member = 'Disable',
+		  public = 'Disable',
+		  lock_rtl = 'Disable',
+		  lock_tgservice = 'Disabe',
+		  lock_contacts = 'Disable',
+		  lock_tag = 'Disable',
+		  lock_webpage = 'Disable',
+		  lock_fwd = 'Disable',
+		  lock_emoji = 'Disable',
+		  lock_eng = 'Disable',
+		  strict = 'Disable',
+		  lock_badw = 'Disable'
         }
       }
       save_data(_config.moderation.data, data)
@@ -45,7 +45,7 @@ local function check_member_super(cb_extra, success, result)
       end
       data[tostring(groups)][tostring(msg.to.id)] = msg.to.id
       save_data(_config.moderation.data, data)
-	  local text = 'SuperGroup has been added!'
+	  local text = '<b>Added</b>!'
       return reply_msg(msg.id, text, ok_cb, false)
     end
   end
@@ -69,7 +69,7 @@ local function check_member_superrem(cb_extra, success, result)
       end
       data[tostring(groups)][tostring(msg.to.id)] = nil
       save_data(_config.moderation.data, data)
-	  local text = 'SuperGroup has been removed'
+	  local text = '<b>Removed</b>'
       return reply_msg(msg.id, text, ok_cb, false)
     end
   end
@@ -120,10 +120,10 @@ end
 --Get and output info about supergroup
 local function callback_info(cb_extra, success, result)
 local title ="Info for SuperGroup > ["..result.title.."]\n\n"
-local admin_num = "Admin count > "..result.admins_count.."\n"
-local user_num = "User count > "..result.participants_count.."\n"
-local kicked_num = "Kicked user count > "..result.kicked_count.."\n"
-local channel_id = "ID > "..result.peer_id.."\n"
+local admin_num = "<b>Admin count > </b><b>"..result.admins_count.."</b>\n"
+local user_num = "<b>User count > </b><b>"..result.participants_count.."</b>\n"
+local kicked_num = "<b>Kicked user count > </b><b>"..result.kicked_count.."</b>\n"
+local channel_id = "<b>ID > </b><b>"..result.peer_id.."</b>\n"
 if result.username then
 	channel_username = "Username > @"..result.username
 else
@@ -193,12 +193,12 @@ local function lock_group_links(msg, data, target)
     return
   end
   local group_link_lock = data[tostring(target)]['settings']['lock_link']
-  if group_link_lock == 'yes' then
-    return reply_msg(msg.id,"> #Link posting is #already locked", ok_cb, false)
+  if group_link_lock == 'Enable' then
+    return reply_msg(msg.id,"<b>already Locked</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_link'] = 'yes'
+    data[tostring(target)]['settings']['lock_link'] = 'Enable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #Link posting has been #locked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Locked</b>", ok_cb, false)
   end
 end
 
@@ -207,12 +207,12 @@ local function unlock_group_links(msg, data, target)
     return
   end
   local group_link_lock = data[tostring(target)]['settings']['lock_link']
-  if group_link_lock == 'no' then
-    return reply_msg(msg.id,"> #Link posting is #not locked", ok_cb, false)
+  if group_link_lock == 'Disable' then
+    return reply_msg(msg.id,"<b>Not Lock</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_link'] = 'no'
+    data[tostring(target)]['settings']['lock_link'] = 'Disable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #Link posting has been #unlocked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Unlocked</b>", ok_cb, false)
   end
 end
 
@@ -224,12 +224,12 @@ local function lock_group_spam(msg, data, target)
     return reply_msg(msg.id,"*Owners only!", ok_cb, false)
   end
   local group_spam_lock = data[tostring(target)]['settings']['lock_spam']
-  if group_spam_lock == 'yes' then
-    return reply_msg(msg.id,"> SuperGroup #spam is #already locked", ok_cb, false)
+  if group_spam_lock == 'Enable' then
+    return reply_msg(msg.id,"<b>already Locked</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_spam'] = 'yes'
+    data[tostring(target)]['settings']['lock_spam'] = 'Enable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> SuperGroup #spam has been #locked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Locked</b>", ok_cb, false)
   end
 end
 
@@ -238,12 +238,12 @@ local function unlock_group_spam(msg, data, target)
     return
   end
   local group_spam_lock = data[tostring(target)]['settings']['lock_spam']
-  if group_spam_lock == 'no' then
-    return reply_msg(msg.id,"> SuperGroup #spam is #not locked", ok_cb, false)
+  if group_spam_lock == 'Disable' then
+    return reply_msg(msg.id",<b>Not locked</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_spam'] = 'no'
+    data[tostring(target)]['settings']['lock_spam'] = 'Disable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> SuperGroup #spam has been #unlocked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Unlocked</n>", ok_cb, false)
   end
 end
 
@@ -252,12 +252,12 @@ local function lock_group_flood(msg, data, target)
     return
   end
   local group_flood_lock = data[tostring(target)]['settings']['flood']
-  if group_flood_lock == 'yes' then
-    return reply_msg(msg.id,"> #Spamming is #already locked", ok_cb, false)
+  if group_flood_lock == 'Enable' then
+    return reply_msg(msg.id,"<b>already locked</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['flood'] = 'yes'
+    data[tostring(target)]['settings']['flood'] = 'Enable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #Spamming has been #locked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Locked</b>", ok_cb, false)
   end
 end
 
@@ -266,12 +266,12 @@ local function unlock_group_flood(msg, data, target)
     return
   end
   local group_flood_lock = data[tostring(target)]['settings']['flood']
-  if group_flood_lock == 'no' then
-    return reply_msg(msg.id,"> #Spamming is #not locked", ok_cb, false)
+  if group_flood_lock == 'Disable' then
+    return reply_msg(msg.id,"<b>Not Locked</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['flood'] = 'no'
+    data[tostring(target)]['settings']['flood'] = 'Disable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #Spamming has been #unlocked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Unlocked</b>", ok_cb, false)
   end
 end
 
@@ -280,12 +280,12 @@ local function lock_group_arabic(msg, data, target)
     return
   end
   local group_arabic_lock = data[tostring(target)]['settings']['lock_arabic']
-  if group_arabic_lock == 'yes' then
-    return reply_msg(msg.id,"> #Arabic/Persian is #already locked", ok_cb, false)
+  if group_arabic_lock == 'Enable' then
+    return reply_msg(msg.id,"<b>Already Locked</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_arabic'] = 'yes'
+    data[tostring(target)]['settings']['lock_arabic'] = 'Enable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #Arabic/Persian has been #locked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Locked</b>", ok_cb, false)
   end
 end
 
@@ -294,26 +294,26 @@ local function unlock_group_arabic(msg, data, target)
     return
   end
   local group_arabic_lock = data[tostring(target)]['settings']['lock_arabic']
-  if group_arabic_lock == 'no' then
-    return reply_msg(msg.id,"> #Arabic/Persian is #already unlocked", ok_cb, false)
+  if group_arabic_lock == 'Disable' then
+    return reply_msg(msg.id,"<b>Not Locked</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_arabic'] = 'no'
+    data[tostring(target)]['settings']['lock_arabic'] = 'Disable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #Arabic/Persian has been #unlocked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Unlocked</b>", ok_cb, false)
   end
 end
--- Tag Fanction by MehdiHS!
+-- Tag Fanction by iborn!
 local function lock_group_tag(msg, data, target)
   if not is_momod(msg) then
     return
   end
   local group_tag_lock = data[tostring(target)]['settings']['lock_tag']
-  if group_tag_lock == 'yes' then
-    return reply_msg(msg.id,"> #Tag is #already locked", ok_cb, false)
+  if group_tag_lock == 'Enable' then
+    return reply_msg(msg.id,"<b>already locked</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_tag'] = 'yes'
+    data[tostring(target)]['settings']['lock_tag'] = 'Enable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #Tag has been #locked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Locked</b>", ok_cb, false)
   end
 end
 
@@ -322,12 +322,12 @@ local function unlock_group_tag(msg, data, target)
     return
   end
   local group_tag_lock = data[tostring(target)]['settings']['lock_tag']
-  if group_tag_lock == 'no' then
-    return reply_msg(msg.id,"> #Tag is #already unlocked", ok_cb, false)
+  if group_tag_lock == 'Disable' then
+    return reply_msg(msg.id,"<b>Not Locked</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_tag'] = 'no'
+    data[tostring(target)]['settings']['lock_tag'] = 'Disable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> Tag has been #unlocked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Unlocked</b>", ok_cb, false)
   end
 end
 -- WebPage Fanction by MehdiHS!
@@ -336,12 +336,12 @@ local function lock_group_webpage(msg, data, target)
     return
   end
   local group_webpage_lock = data[tostring(target)]['settings']['lock_webpage']
-  if group_webpage_lock == 'yes' then
-    return reply_msg(msg.id,"> #WebLink Posting is #already locked!", ok_cb, false)
+  if group_webpage_lock == 'Enable' then
+    return reply_msg(msg.id,"<b>already Locked!</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_webpage'] = 'yes'
+    data[tostring(target)]['settings']['lock_webpage'] = 'Enable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #WebLink posting has been #locked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Locked</b>", ok_cb, false)
   end
 end
 
@@ -350,12 +350,12 @@ local function unlock_group_webpage(msg, data, target)
     return
   end
   local group_webpage_lock = data[tostring(target)]['settings']['lock_webpage']
-  if group_webpage_lock == 'no' then
-    return reply_msg(msg.id,"> #WebLink Posting is #already unlocked", ok_cb, false)
+  if group_webpage_lock == 'Disable' then
+    return reply_msg(msg.id,"<b>Locked</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_webpage'] = 'no'
+    data[tostring(target)]['settings']['lock_webpage'] = 'Disable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #WebLink posting has been #unlocked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Unlocked</b>", ok_cb, false)
   end
 end
 -- Anti Fwd Fanction by MehdiHS!
@@ -364,12 +364,12 @@ local function lock_group_fwd(msg, data, target)
     return
   end
   local group_fwd_lock = data[tostring(target)]['settings']['lock_fwd']
-  if group_fwd_lock == 'yes' then
-    return reply_msg(msg.id,"> #Forward Msg is #already locked!", ok_cb, false)
+  if group_fwd_lock == 'Enable' then
+    return reply_msg(msg.id,"<b>already locked!</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_fwd'] = 'yes'
+    data[tostring(target)]['settings']['lock_fwd'] = 'Enable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #Forward Msg has been #locked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Locked</b>", ok_cb, false)
   end
 end
 
@@ -378,12 +378,12 @@ local function unlock_group_fwd(msg, data, target)
     return
   end
   local group_fwd_lock = data[tostring(target)]['settings']['lock_fwd']
-  if group_fwd_lock == 'no' then
-    return reply_msg(msg.id,"> #Forward Msg is #already unlocked", ok_cb, false)
+  if group_fwd_lock == 'Disable' then
+    return reply_msg(msg.id,"<b>Not Locked</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_fwd'] = 'no'
+    data[tostring(target)]['settings']['lock_fwd'] = 'Disable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #Forward Msg has been #unlocked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Unlocked</b>", ok_cb, false)
   end
 end
 -- lock badword Fanction by MehdiHS!
@@ -392,12 +392,12 @@ local function lock_group_badw(msg, data, target)
     return
   end
   local group_badw_lock = data[tostring(target)]['settings']['lock_badw']
-  if group_badw_lock == 'yes' then
-    return reply_msg(msg.id,"> #Badwords is #already locked!", ok_cb, false)
+  if group_badw_lock == 'Enable' then
+    return reply_msg(msg.id,"<b>already locked!</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_badw'] = 'yes'
+    data[tostring(target)]['settings']['lock_badw'] = 'Enable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #Badwords Has been #locked!", ok_cb, false)
+    return reply_msg(msg.id,"<b>Locked!</b>", ok_cb, false)
   end
 end
 
@@ -406,12 +406,12 @@ local function unlock_group_badw(msg, data, target)
     return
   end
   local group_badw_lock = data[tostring(target)]['settings']['lock_badw']
-  if group_badw_lock == 'no' then
-    return reply_msg(msg.id,"> #Badwords is #already unlocked", ok_cb, false)
+  if group_badw_lock == 'Disable' then
+    return reply_msg(msg.id,"<b>Not Locked</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_badw'] = 'no'
+    data[tostring(target)]['settings']['lock_badw'] = 'Disable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #Badwords has been #unlocked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Unlocked</b>", ok_cb, false)
   end
 end
 -- lock emoji Fanction by MehdiHS!
@@ -420,12 +420,12 @@ local function lock_group_emoji(msg, data, target)
     return
   end
   local group_emoji_lock = data[tostring(target)]['settings']['lock_emoji']
-  if group_emoji_lock == 'yes' then
-    return reply_msg(msg.id,"> #Emoji is #already locked!", ok_cb, false)
+  if group_emoji_lock == 'Enable' then
+    return reply_msg(msg.id,"<b>already Locked!</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_emoji'] = 'yes'
+    data[tostring(target)]['settings']['lock_emoji'] = 'Enable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #Emoji Has been #locked!", ok_cb, false)
+    return reply_msg(msg.id,"<b>Locked!</b>", ok_cb, false)
   end
 end
 
@@ -434,12 +434,12 @@ local function unlock_group_emoji(msg, data, target)
     return
   end
   local group_emoji_lock = data[tostring(target)]['settings']['lock_emoji']
-  if group_emoji_lock == 'no' then
-    return reply_msg(msg.id,"> #Emoji is #already unlocked", ok_cb, false)
+  if group_emoji_lock == 'Disable' then
+    return reply_msg(msg.id,"<b>Not Locked!</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_emoji'] = 'no'
+    data[tostring(target)]['settings']['lock_emoji'] = 'Disable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #Emoji has been #unlocked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Unlocked!</b>", ok_cb, false)
   end
 end
 -- lock English Fanction by MehdiHS!
@@ -448,12 +448,12 @@ local function lock_group_eng(msg, data, target)
     return
   end
   local group_eng_lock = data[tostring(target)]['settings']['lock_eng']
-  if group_eng_lock == 'yes' then
-    return reply_msg(msg.id,"> #English is #already locked!", ok_cb, false)
+  if group_eng_lock == 'Enable' then
+    return reply_msg(msg.id,"<b>already locked!</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_eng'] = 'yes'
+    data[tostring(target)]['settings']['lock_eng'] = 'Enable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #English Has been #locked!", ok_cb, false)
+    return reply_msg(msg.id,"<b>Locked!</b>", ok_cb, false)
   end
 end
 
@@ -462,12 +462,12 @@ local function unlock_group_eng(msg, data, target)
     return
   end
   local group_eng_lock = data[tostring(target)]['settings']['lock_eng']
-  if group_eng_lock == 'no' then
-    return reply_msg(msg.id,"> #English is #already unlocked", ok_cb, false)
+  if group_eng_lock == 'Disable' then
+    return reply_msg(msg.id,"<b>Not Locked</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_eng'] = 'no'
+    data[tostring(target)]['settings']['lock_eng'] = 'Disable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #English has been #unlocked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Unlocked</b>", ok_cb, false)
   end
 end
 local function unlock_group_membermod(msg, data, target)
@@ -475,12 +475,12 @@ local function unlock_group_membermod(msg, data, target)
     return
   end
   local group_member_lock = data[tostring(target)]['settings']['lock_member']
-  if group_member_lock == 'no' then
-    return reply_msg(msg.id,"> SuperGroup #members are #not locked", ok_cb, false)
+  if group_member_lock == 'Disable' then
+    return reply_msg(msg.id,"<b>Not Locked</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_member'] = 'no'
+    data[tostring(target)]['settings']['lock_member'] = 'Disable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> SuperGroup #members has been #unlocked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Unlocked</b>", ok_cb, false)
   end
 end
 
@@ -489,12 +489,12 @@ local function lock_group_rtl(msg, data, target)
     return
   end
   local group_rtl_lock = data[tostring(target)]['settings']['lock_rtl']
-  if group_rtl_lock == 'yes' then
-    return reply_msg(msg.id,"> #RTL is #already locked", ok_cb, false)
+  if group_rtl_lock == 'Enable' then
+    return reply_msg(msg.id,"<b>already locked!</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_rtl'] = 'yes'
+    data[tostring(target)]['settings']['lock_rtl'] = 'Enable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #RTL has been #Locked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Locked</b>", ok_cb, false)
   end
 end
 
@@ -503,12 +503,12 @@ local function unlock_group_rtl(msg, data, target)
     return
   end
   local group_rtl_lock = data[tostring(target)]['settings']['lock_rtl']
-  if group_rtl_lock == 'no' then
-    return reply_msg(msg.id,"> #RTL is #already unlocked", ok_cb, false)
+  if group_rtl_lock == 'Disable' then
+    return reply_msg(msg.id,"<b>Not Locked</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_rtl'] = 'no'
+    data[tostring(target)]['settings']['lock_rtl'] = 'Disable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #RTL has been #unlocked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Unlocked</b>", ok_cb, false)
   end
 end
 
@@ -517,12 +517,12 @@ local function lock_group_tgservice(msg, data, target)
     return
   end
   local group_tgservice_lock = data[tostring(target)]['settings']['lock_tgservice']
-  if group_tgservice_lock == 'yes' then
-    return reply_msg(msg.id,"> #TgService is #already locked", ok_cb, false)
+  if group_tgservice_lock == 'Enable' then
+    return reply_msg(msg.id,"<b>already Locked</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_tgservice'] = 'yes'
+    data[tostring(target)]['settings']['lock_tgservice'] = 'Enable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #TGservice has been #locked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Locked</b>", ok_cb, false)
   end
 end
 
@@ -531,12 +531,12 @@ local function unlock_group_tgservice(msg, data, target)
     return
   end
   local group_tgservice_lock = data[tostring(target)]['settings']['lock_tgservice']
-  if group_tgservice_lock == 'no' then
-    return reply_msg(msg.id,"> #TgService Is #Not Locked!", ok_cb, false)
+  if group_tgservice_lock == 'Disable' then
+    return reply_msg(msg.id,"<b>Not Locked!</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_tgservice'] = 'no'
+    data[tostring(target)]['settings']['lock_tgservice'] = 'Disable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #TGservice has been #unlocked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Unlocked</b>", ok_cb, false)
   end
 end
 
@@ -545,12 +545,12 @@ local function lock_group_sticker(msg, data, target)
     return
   end
   local group_sticker_lock = data[tostring(target)]['settings']['lock_sticker']
-  if group_sticker_lock == 'yes' then
-    return reply_msg(msg.id,"> #Sticker posting is #already locked", ok_cb, false)
+  if group_sticker_lock == 'Enable' then
+    return reply_msg(msg.id,"<b>already Locked</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_sticker'] = 'yes'
+    data[tostring(target)]['settings']['lock_sticker'] = 'Enable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #Sticker posting has been #locked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Locked</b>", ok_cb, false)
   end
 end
 
@@ -559,12 +559,12 @@ local function unlock_group_sticker(msg, data, target)
     return
   end
   local group_sticker_lock = data[tostring(target)]['settings']['lock_sticker']
-  if group_sticker_lock == 'no' then
-    return reply_msg(msg.id,"> #Sticker posting is #already unlocked", ok_cb, false)
+  if group_sticker_lock == 'Disable' then
+    return reply_msg(msg.id,"<b>Not Locked</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_sticker'] = 'no'
+    data[tostring(target)]['settings']['lock_sticker'] = 'Disable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #Sticker posting has been #unlocked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Unlocked</b>", ok_cb, false)
   end
 end
 
@@ -573,12 +573,12 @@ local function lock_group_contacts(msg, data, target)
     return
   end
   local group_contacts_lock = data[tostring(target)]['settings']['lock_contacts']
-  if group_contacts_lock == 'yes' then
-    return reply_msg(msg.id,"> #Contact posting is #already locked", ok_cb, false)
+  if group_contacts_lock == 'Enable' then
+    return reply_msg(msg.id,"<b>already locked</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_contacts'] = 'yes'
+    data[tostring(target)]['settings']['lock_contacts'] = 'Enable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #Contact posting has been #locked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Locked</b>", ok_cb, false)
   end
 end
 
@@ -587,12 +587,12 @@ local function unlock_group_contacts(msg, data, target)
     return
   end
   local group_contacts_lock = data[tostring(target)]['settings']['lock_contacts']
-  if group_contacts_lock == 'no' then
-    return reply_msg(msg.id,"> #Contact posting is #already unlocked", ok_cb, false)
+  if group_contacts_lock == 'Disable' then
+    return reply_msg(msg.id,"<b>Not Locked</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['lock_contacts'] = 'no'
+    data[tostring(target)]['settings']['lock_contacts'] = 'Disable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #Contact posting has been #unlocked", ok_cb, false)
+    return reply_msg(msg.id,"<b>Unlocked</b>", ok_cb, false)
   end
 end
 
@@ -601,12 +601,12 @@ local function enable_strict_rules(msg, data, target)
     return
   end
   local group_strict_lock = data[tostring(target)]['settings']['strict']
-  if group_strict_lock == 'yes' then
-    return reply_msg(msg.id,"> #Settings are #already strictly enforced", ok_cb, false)
+  if group_strict_lock == 'Enable' then
+    return reply_msg(msg.id,"<b>already strictly enforced</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['strict'] = 'yes'
+    data[tostring(target)]['settings']['strict'] = 'Enable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #Settings will be #strictly_enforced", ok_cb, false)
+    return reply_msg(msg.id,"<b>will be strictly enforced</b>", ok_cb, false)
   end
 end
 
@@ -615,12 +615,12 @@ local function disable_strict_rules(msg, data, target)
     return
   end
   local group_strict_lock = data[tostring(target)]['settings']['strict']
-  if group_strict_lock == 'no' then
-    return reply_msg(msg.id,"> #Settings are #not strictly enforced", ok_cb, false)
+  if group_strict_lock == 'Disable' then
+    return reply_msg(msg.id,"<b>not strictly enforced</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['strict'] = 'no'
+    data[tostring(target)]['settings']['strict'] = 'Disable'
     save_data(_config.moderation.data, data)
-    return reply_msg(msg.id,"> #Settings will #not be strictly enforced", ok_cb, false)
+    return reply_msg(msg.id,"<b>will not be strictly enforced</b>", ok_cb, false)
   end
 end
 --End supergroup locks
@@ -633,14 +633,14 @@ local function set_rulesmod(msg, data, target)
   local data_cat = 'rules'
   data[tostring(target)][data_cat] = rules
   save_data(_config.moderation.data, data)
-  return reply_msg(msg.id,"*SuperGroup rules set", ok_cb, false)
+  return reply_msg(msg.id,"<b>Done.</b>", ok_cb, false)
 end
 
 --'Get supergroup rules' function
 local function get_rules(msg, data)
   local data_cat = 'rules'
   if not data[tostring(msg.to.id)][data_cat] then
-    return reply_msg(msg.id,"*No rules available.", ok_cb, false)
+    return reply_msg(msg.id,"<code>*No rules available.</code>", ok_cb, false)
   end
   local rules = data[tostring(msg.to.id)][data_cat]
   local group_name = data[tostring(msg.to.id)]['settings']['set_name']
@@ -659,13 +659,13 @@ local function set_public_membermod(msg, data, target)
 	data[tostring(target)]['long_id'] = msg.to.peer_id
 	save_data(_config.moderation.data, data)
   end
-  if group_public_lock == 'yes' then
-    return reply_msg(msg.id,"*Group is already public", ok_cb, false)
+  if group_public_lock == 'Public' then
+    return reply_msg(msg.id,"<b>already public</b>", ok_cb, false)
   else
-    data[tostring(target)]['settings']['public'] = 'yes'
+    data[tostring(target)]['settings']['public'] = 'Public'
     save_data(_config.moderation.data, data)
   end
-  return reply_msg(msg.id,"*SuperGroup is now: #Public", ok_cb, false)
+  return reply_msg(msg.id,"<b>publiced</b>", ok_cb, false)
 end
 
 local function unset_public_membermod(msg, data, target)
@@ -678,10 +678,10 @@ local function unset_public_membermod(msg, data, target)
 	data[tostring(target)]['long_id'] = msg.to.peer_id
 	save_data(_config.moderation.data, data)
   end
-  if group_public_lock == 'no' then
+  if group_public_lock == 'private' then
     return reply_msg(msg.id,"*Group is not public", ok_cb, false)
   else
-    data[tostring(target)]['settings']['public'] = 'no'
+    data[tostring(target)]['settings']['public'] = 'private'
 	data[tostring(target)]['long_id'] = msg.to.long_id
     save_data(_config.moderation.data, data)
     return reply_msg(msg.id,"*SuperGroup is now: not public",ok_cb,false)
@@ -704,82 +704,81 @@ function show_supergroup_settingsmod(msg, target)
     end
 	if data[tostring(target)]['settings'] then
 		if not data[tostring(target)]['settings']['public'] then
-			data[tostring(target)]['settings']['public'] = 'no'
+			data[tostring(target)]['settings']['public'] = 'private'
 		end
 	end
 	if data[tostring(target)]['settings'] then
 		if not data[tostring(target)]['settings']['lock_tag'] then
-			data[tostring(target)]['settings']['lock_tag'] = 'no'
+			data[tostring(target)]['settings']['lock_tag'] = 'Disable'
 		end
 	end
 	if data[tostring(target)]['settings'] then
 		if not data[tostring(target)]['settings']['lock_rtl'] then
-			data[tostring(target)]['settings']['lock_rtl'] = 'no'
+			data[tostring(target)]['settings']['lock_rtl'] = 'Disable'
 		end
 end
 	if data[tostring(target)]['settings'] then
 		if not data[tostring(target)]['settings']['lock_webpage'] then
-			data[tostring(target)]['settings']['lock_webpage'] = 'no'
+			data[tostring(target)]['settings']['lock_webpage'] = 'Disable'
 		end
 end
 	if data[tostring(target)]['settings'] then
 		if not data[tostring(target)]['settings']['lock_emoji'] then
-			data[tostring(target)]['settings']['lock_emoji'] = 'no'
+			data[tostring(target)]['settings']['lock_emoji'] = 'Disable'
 		end
 end
 	if data[tostring(target)]['settings'] then
 		if not data[tostring(target)]['settings']['lock_eng'] then
-			data[tostring(target)]['settings']['lock_eng'] = 'no'
+			data[tostring(target)]['settings']['lock_eng'] = 'Disable'
 		end
 end
 	if data[tostring(target)]['settings'] then
 		if not data[tostring(target)]['settings']['lock_badw'] then
-			data[tostring(target)]['settings']['lock_badw'] = 'no'
+			data[tostring(target)]['settings']['lock_badw'] = 'Disable'
 		end
 end
 	if data[tostring(target)]['settings'] then
 		if not data[tostring(target)]['settings']['lock_photo'] then
-			data[tostring(target)]['settings']['lock_photo'] = 'no'
+			data[tostring(target)]['settings']['lock_photo'] = 'Disable'
 		end
 end
 	if data[tostring(target)]['settings'] then
 		if not data[tostring(target)]['settings']['lock_gif'] then
-			data[tostring(target)]['settings']['lock_gif'] = 'no'
+			data[tostring(target)]['settings']['lock_gif'] = 'Disable'
 		end
 end
 	if data[tostring(target)]['settings'] then
 		if not data[tostring(target)]['settings']['lock_video'] then
-			data[tostring(target)]['settings']['lock_video'] = 'no'
+			data[tostring(target)]['settings']['lock_video'] = 'Disable'
 		end
 end
 	if data[tostring(target)]['settings'] then
 		if not data[tostring(target)]['settings']['lock_document'] then
-			data[tostring(target)]['settings']['lock_document'] = 'no'
+			data[tostring(target)]['settings']['lock_document'] = 'Disable'
 		end
 end
 	if data[tostring(target)]['settings'] then
 		if not data[tostring(target)]['settings']['lock_audio'] then
-			data[tostring(target)]['settings']['lock_audio'] = 'no'
+			data[tostring(target)]['settings']['lock_audio'] = 'Disable'
 		end
 end
       if data[tostring(target)]['settings'] then
 		if not data[tostring(target)]['settings']['lock_tgservice'] then
-			data[tostring(target)]['settings']['lock_tgservice'] = 'no'
+			data[tostring(target)]['settings']['lock_tgservice'] = 'Disable'
 		end
 	end
 	if data[tostring(target)]['settings'] then
 		if not data[tostring(target)]['settings']['lock_member'] then
-			data[tostring(target)]['settings']['lock_member'] = 'no'
+			data[tostring(target)]['settings']['lock_member'] = 'Disable'
 		end
 	end
 	if data[tostring(target)]['settings'] then
 		if not data[tostring(target)]['settings']['lock_fwd'] then
-			data[tostring(target)]['settings']['lock_fwd'] = 'no'
+			data[tostring(target)]['settings']['lock_fwd'] = 'Disable'
 		end
 	end
-
   local settings = data[tostring(target)]['settings']
-  local text = "SuperGroup settings:\n\nLock Links > "..settings.lock_link.."\nLock Webpage > "..settings.lock_webpage.."\nLock Tag > "..settings.lock_tag.."\nLock Emoji > "..settings.lock_emoji.."\nLock English > "..settings.lock_eng.."\nLock Badword > "..settings.lock_badw.."\nLock Flood > "..settings.flood.."\nFlood sensitivity > "..NUM_MSG_MAX.."\nLock Spam > "..settings.lock_spam.."\nLock Contacts > "..settings.lock_contacts.."\nLock Arabic/Persian > "..settings.lock_arabic.."\nLock Member > "..settings.lock_member.."\nLock RTL > "..settings.lock_rtl.."\nLock Forward > "..settings.lock_fwd.."\nLock TGservice > "..settings.lock_tgservice.."\nLock Sticker > "..settings.lock_sticker.."\nPublic > "..settings.public.."\nStrict Settings > "..settings.strict
+  local text = "<b>SuperGroup settings:</b>\n\n<b>Lock Links ></b> <code>"..settings.lock_link.."</code>\n<b>Lock Webpage ></b> <code>"..settings.lock_webpage.."</code>\n<b>Lock Tag ></b> <code>"..settings.lock_tag.."</code>\n<b>Lock Emoji ></b> <code>"..settings.lock_emoji.."</code>\n<b>Lock English ></b> <code>"..settings.lock_eng.."</code>\n<b>Lock Badword ></b> <code>"..settings.lock_badw.."</code>\n<b>Lock Flood ></b> <code>"..settings.flood.."</code>\n<b>Flood sensitivity ></b> <code>"..NUM_MSG_MAX.."</code>\n<b>Lock Spam ></b> <code>"..settings.lock_spam.."</code>\n<b>Lock Contacts ></b> <code>"..settings.lock_contacts.."</code>\n<b>Lock Arabic/Persian ></b> <code>"..settings.lock_arabic.."</code>\n<b>Lock Member ></b> <code>"..settings.lock_member.."</code>\n<b>Lock RTL ></b> <code>"..settings.lock_rtl.."</code>\n<b>Lock Forward ></b> <code>"..settings.lock_fwd.."</code>\n<b>Lock TGservice ></b> <code>"..settings.lock_tgservice.."</code>\n<b>Lock Sticker ></b> <code>"..settings.lock_sticker.."</code>\n<b>Public ></b> <code>"..settings.public.."</code>\n<b>Strict Settings ></b> <code>"..settings.strict.."\n<b>About link ></b> <code>"..settings.set_link</code>
   reply_msg(msg.id, text, ok_cb, false)
 end
 
@@ -847,7 +846,7 @@ local function modlist(msg)
   end
   -- determine if table is empty
   if next(data[tostring(msg.to.id)]['moderators']) == nil then
-    return '*No moderator in this group.'
+    return '<b>No moderator</b>'
   end
   local i = 1
   local message = '\nList of moderators for ' .. string.gsub(msg.to.print_name, '_', ' ') .. ':\n> '
@@ -1009,10 +1008,10 @@ function get_message_callback(extra, success, result)
 		print(chat_id)
 		if is_muted_user(chat_id, user_id) then
 			unmute_user(chat_id, user_id)
-			send_large_msg(receiver, ">Done.\n["..user_id.."] removed from the muted user list")
+			send_large_msg(receiver, "<b>["..user_id.."] removed from the muted user list</b>")
 		elseif is_admin1(msg) then
 			mute_user(chat_id, user_id)
-			send_large_msg(receiver, ">Done\n ["..user_id.."] added to the muted user list")
+			send_large_msg(receiver, " <b>["..user_id.."] added to the muted user list</b>")
 		end
 	end
 end
@@ -1124,9 +1123,9 @@ local function callbackres(extra, success, result)
 			save_data(_config.moderation.data, data)
 			savelog(channel, name_log.." ["..from_id.."] set ["..result.peer_id.."] as owner by username")
 		if result.username then
-			text = member_username.."> [ "..result.peer_id.." ] added as owner"
+			text = member_username.."<b> [ "..result.peer_id.." ] added as owner</b>"
 		else
-			text = "> [ "..result.peer_id.." ] added as owner"
+			text = "<b> [ "..result.peer_id.." ] added as owner</b>"
 		end
 		send_large_msg(receiver, text)
   end
@@ -1167,7 +1166,7 @@ local function callbackres(extra, success, result)
 			send_large_msg(receiver, " ["..user_id.."] removed from muted user list")
 		elseif is_owner(extra.msg) then
 			mute_user(chat_id, user_id)
-			send_large_msg(receiver, " ["..user_id.."] added to muted user list")
+			send_large_msg(receiver, " <b>["..user_id.."] added to muted user list</b>")
 		end
 	end
 end
@@ -1184,9 +1183,9 @@ local function in_channel_cb(cb_extra, success, result)
   local member = cb_extra.username
   local memberid = cb_extra.user_id
   if member then
-    text = '*No user @'..member..' in this SuperGroup.'
+    text = '<b>@'..member..' Not Found.</b>'
   else
-    text = '*No user ['..memberid..'] in this SuperGroup.'
+    text = '<b> ['..memberid..'] Not Found.</b>'
   end
 if get_cmd == "channel_block" then
   for k,v in pairs(result) do
@@ -1304,7 +1303,7 @@ local function set_supergroup_photo(msg, success, result)
     channel_set_photo(receiver, file, ok_cb, false)
     data[tostring(msg.to.id)]['settings']['set_photo'] = file
     save_data(_config.moderation.data, data)
-    send_large_msg(receiver, 'Photo saved!', ok_cb, false)
+    send_large_msg(receiver, '<b>Photo saved!</b>', ok_cb, false)
   else
     print('Error downloading: '..msg.id)
     send_large_msg(receiver, '*Failed, please try again!', ok_cb, false)
@@ -1326,7 +1325,7 @@ local function run(msg, matches)
 			if not is_admin1(msg) then
 				return
 			end
-			return "Already a SuperGroup"
+			return "<b>Already a SuperGroup</b>"
 		end
 	end
 	if msg.to.type == 'channel' then
@@ -1482,7 +1481,7 @@ local function run(msg, matches)
 				resolve_username(username,  callbackres, cbres_extra)
 			else
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] requested SuperGroup ID")
-				return reply_msg(msg.id, " > SuperGroup ID: "..msg.to.id.."\n> SuperGroup Name: "..msg.to.title.."\n> First Name: "..(msg.from.first_name or '').."\n> Last Name: "..(msg.from.last_name or '').."\n> Your ID: "..msg.from.id.."\n> Username: @"..(msg.from.username or '').."\n> Phone Number: +"..(msg.from.phone or '404 Not Found!').."\n> Your Link: Telegram.Me/"..(msg.from.username or '').."\n> Group Type: #SuperGroup", ok_cb, false)		end
+				return reply_msg(msg.id, "<b>> SuperGroup ID:</b> "..msg.to.id.."\n<b>> SuperGroup Name:</b> "..msg.to.title.."\n<b>> First Name:</b> "..(msg.from.first_name or '').."\n<b>> Last Name:</b> "..(msg.from.last_name or '').."\n<b>> Your ID:</b> "..msg.from.id.."\n<b>> Username:</b> @"..(msg.from.username or '').."\n<b>> Phone Number:</b> +"..(msg.from.phone or '404 Not Found!').."\n<b>> Your Link:</b> Telegram.Me/"..(msg.from.username or '').."\n<b>> Group Type: #SuperGroup</b>", ok_cb, false)		end
 		end
 
 		if matches[1] == 'kickme' then
@@ -1496,11 +1495,11 @@ local function run(msg, matches)
 			local function callback_link (extra , success, result)
 			local receiver = get_receiver(msg)
 				if success == 0 then
-					send_large_msg(receiver, '*Error \nReason: Not creator \n please use /setlink to set it')
+					send_large_msg(receiver, '*<code>Error \nReason: Not creator \n please use /setlink to set it</code>')
 					data[tostring(msg.to.id)]['settings']['set_link'] = nil
 					save_data(_config.moderation.data, data)
 				else
-					send_large_msg(receiver, "Created a new link")
+					send_large_msg(receiver, "<b>Created a new link</b>")
 					data[tostring(msg.to.id)]['settings']['set_link'] = result
 					save_data(_config.moderation.data, data)
 				end
@@ -1512,14 +1511,14 @@ local function run(msg, matches)
 		if matches[1] == 'setlink' and is_owner(msg) then
 			data[tostring(msg.to.id)]['settings']['set_link'] = 'waiting'
 			save_data(_config.moderation.data, data)
-			return 'Please send the new group link now!'
+			return '<b>Please send the new group link now!</b>'
 		end
 
 		if msg.text then
 			if msg.text:match("^(https://telegram.me/joinchat/%S+)$") and data[tostring(msg.to.id)]['settings']['set_link'] == 'waiting' and is_owner(msg) then
 				data[tostring(msg.to.id)]['settings']['set_link'] = msg.text
 				save_data(_config.moderation.data, data)
-				return "New link set !"
+				return "<b>New link set !</b>"
 			end
 		end
 
@@ -1529,10 +1528,10 @@ local function run(msg, matches)
 			end
 			local group_link = data[tostring(msg.to.id)]['settings']['set_link']
 			if not group_link then
-				return "> Create a link using /newlink first!\n\nOr if I am not creator use /setlink to set your link"
+				return "<b> Create a link using /newlink first!\n\nOr if I am not creator use /setlink to set your link</b>"
 			end
 			savelog(msg.to.id, name_log.." ["..msg.from.id.."] requested group link ["..group_link.."]")
-			return "SuperGroup link:\n> "..group_link
+			return "<b>SuperGroup link:</b>\n> "..group_link
 		end
 
 		if matches[1] == "invite" and is_sudo(msg) then
@@ -2077,7 +2076,7 @@ local function run(msg, matches)
 		end
 		if matches[1] == 'public' and is_momod(msg) then
 			local target = msg.to.id
-			if matches[2] == 'yes' then
+			if matches[2] == 'Enable' then
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] set group to: public")
 				return set_public_membermod(msg, data, target)
 			end
@@ -2106,7 +2105,7 @@ local function run(msg, matches)
 					mute(chat_id, msg_type)
 					return msg_type.." has been muted"
 				else 
-					return "silent"..msg_type.." is already on"
+					return "Mute "..msg_type.." is already on"
 				end
 			end
 			if matches[2] == 'video' then
@@ -2235,7 +2234,7 @@ local function run(msg, matches)
 		end
 
 
-		if matches[1] == "silent" and is_momod(msg) then
+		if matches[1] == "mute" and is_momod(msg) then
 			local chat_id = msg.to.id
 			local hash = "mute_user"..chat_id
 			local user_id = ""
@@ -2243,18 +2242,18 @@ local function run(msg, matches)
 				local receiver = get_receiver(msg)
 				local get_cmd = "mute_user"
 				muteuser = get_message(msg.reply_id, get_message_callback, {receiver = receiver, get_cmd = get_cmd, msg = msg})
-			elseif matches[1] == "silent" and string.match(matches[2], '^%d+$') then
+			elseif matches[1] == "mute" and string.match(matches[2], '^%d+$') then
 				local user_id = matches[2]
 				if is_muted_user(chat_id, user_id) then
 					unmute_user(chat_id, user_id)
 					savelog(msg.to.id, name_log.." ["..msg.from.id.."] removed ["..user_id.."] from the muted users list")
-					return ">Done.\n ["..user_id.."] removed from the muted users list"
+					return "> ["..user_id.."] removed from the muted users list"
 				elseif is_momod(msg) then
 					mute_user(chat_id, user_id)
 					savelog(msg.to.id, name_log.." ["..msg.from.id.."] added ["..user_id.."] to the muted users list")
-					return reply_msg(msg.id,">Done\n ["..user_id.."] added to the muted user list",ok_cb,false)
+					return reply_msg(msg.id,"> ["..user_id.."] added to the muted user list",ok_cb,false)
 				end
-			elseif matches[1] == "silent" and not string.match(matches[2], '^%d+$') then
+			elseif matches[1] == "mute" and not string.match(matches[2], '^%d+$') then
 				local receiver = get_receiver(msg)
 				local get_cmd = "mute_user"
 				local username = matches[2]
@@ -2289,20 +2288,20 @@ local function run(msg, matches)
 			return get_rules(msg, data)
 		end
 
-		if matches[1] == 'help.' and not is_momod(msg) then
-			text = "Help comments for #Extreme\n----\n1. #Hammer\n#ban\n#banall\n#block\n2.#secret\n#lock [sticker|gif|links|webpage|contacts|emoji|photos|inline|bots|spam]\n#clean [deleted| modlist| silentlist]\n#del [number| reply]\n!setflood [number] {5/20}\n!mute [all | (set time)\nExample: !mute all 8\n!silent [reply | username | id]\n!silentlist\n----\n3.#Group_Control\n!setname\n!setphoto\n!link\n!linkpv\n!newlink\n----\n!promote\n!demote\n!setadmin\n!remadmin\n!id\n------\n4.#BadWords\n!addword {text}\n!delword {text}\n!badword\n5. #personal \n!bot \n!me\nMy [number|id|link|username]\n!plist\n------\n6.#Group_Settings\n#info\n#bots\n#admins\n#kicked\n#who\n#settings\n#rules\n7.#Other | #Fun\n!time\n!feedback\n!topng\n!tophoto\n!togif\n!tovideo\n!toaudio\n!tomkv\n!extreme\n!nerkh\n!sticker [text] [color] [font]\n#calc 2+2\n#weather [city]\n#porn [Text]\n8.#Settings_tgservice\n!setwlc [Your Text]\n#delwlc [Your Text]\n\nAny bugs USE #feedback [text]"
+		if matches[1] == 'help' and not is_momod(msg) then
+			text = "لیست دستورات برای اعضای معمولی:\n\n➖➖➖➖➖➖\n#topstats\nنشان دادن ۳ نفر از فعال ترین اعضای گروه!\n➖➖➖➖➖➖\n#filterlist\nنشان دادن کلمه های فیلتر شده.\n➖➖➖➖➖➖\n#id\nنمایش اطلاعات اکانت شما .\n➖➖➖➖➖➖\n#sticker [reply]\nبا ریپلای کردن عکس میتوانید آن را به استیکر تبدیل کنید!\n#sticker [text]\nتبدیل متن شما به استیکر ...\n#sticker [text] [color]\nتبدیل متن شما به استیکر با تنظیم رنگ ...\n#sticker [text] [color] [font]\n\nتبدیل متن شما به استیکر با تنظیم رنگ و فونت...\n( Supported fonts : [fun|italic|bold|arial] )\n( Supported colors : [black|red|blue|yellow|pink|orange|brown] )\nتبدیل متن شما به استیکر ...\n➖➖➖➖➖➖\n#photo [reply]\nبا ریپلای کردن استیکر میتوانید آن را به عکس تبدیل کنید!\n➖➖➖➖➖➖\n#vc [kalame](زبان ها : Farsi,En)\nتبدیل کلمه به صدا\n➖➖➖➖➖➖\n#weather [اسم شهر]\nدریافت اطلاعات آب و هوای یک منطقه\n➖➖➖➖➖➖\n#aparat [کلمه] \nجستوجو در آپارات!\n➖➖➖➖➖➖\n#me\nنمایش تعداد پیام های ارسال شده از شما\n➖➖➖➖➖➖\n#qr [کلمه]\nتبدیل کلمه،لینک،... شما به بارکد\n➖➖➖➖➖➖\n#insta [id, Post Link]\nدریافت اطلاعات ایدی و ... از اینستاگرام!\n➖➖➖➖➖➖\n#calc [2*2]\nمحاسبه جمع تفریق ضرب و...\n➖➖➖➖➖➖\n#porn [text]\nجستجو در 7 سایت +18\n➖➖➖➖➖➖\n#time\nدریافت زمان دقیق!\n➖➖➖➖➖➖\n#support \nدریافت لینک گروه پشتیبانی!\n➖➖➖➖➖➖\n#version\nنمایش ورژن و ادمین های ربات!\n➖➖➖➖➖➖\n#plist\nدریافت لیست قیمت برای خرید گروه...\n➖➖➖➖➖➖\n#write [text]\nطراحی کلمه مورد تظر با 17 فونت!\n➖➖➖➖➖➖\n#feedback [text]\nشما میتوانید با این دستور نظرات و پیشنهادات خود را برای ما ارسال کنید...\n➖➖➖➖➖➖\n| Channel : @Black_CH |\n"
 			reply_msg(msg.id, text, ok_cb, false)
-		elseif matches[1] == 'help.' and is_momod(msg) then
-			text = "Help comments for #Extreme\n----\n1. #Hammer\n#ban\n#banall\n#block\n2.#secret\n#lock [sticker|gif|links|webpage|contacts|emoji|photos|inline|bots|spam]\n#clean [deleted| modlist| silentlist]\n#del [number| reply]\n!setflood [number] {5/20}\n!mute [all | (set time)\nExample: !mute all 8\n!silent [reply | username | id]\n!silentlist\n----\n3.#Group_Control\n!setname\n!setphoto\n!link\n!linkpv\n!newlink\n----\n!promote\n!demote\n!setadmin\n!remadmin\n!id\n------\n4.#BadWords\n!addword {text}\n!delword {text}\n!badword\n5.#personal \n!bot \n!me\nMy [number|id|link|username]\n!plist\n------\n6.#Group_Settings\n#info\n#bots\n#admins\n#kicked\n#who\n#settings\n#rules\n7.#Other | #Fun\n!time\n!feedback\n!topng\n!tophoto\n!togif\n!tovideo\n!toaudio\n!tomkv\n!extreme\n!nerkh\n!sticker [text] [color] [font]\n#calc 2+2\n#weather [city]\n#porn [Text]\n8.#Settings_tgservice\n!setwlc [Your Text]\n#delwlc [Your Text]\n\nAny bugs USE #feedback [text]"
+		elseif matches[1] == 'help' and is_momod(msg) then
+			text = "➖➖➖➖➖➖\n#ban @username\nاخراج کردن یک فرد از گروه به صورت دائمی\n#unban @username\nخارج کردن یک فرد از حالت اخراج دائمی!\n#banlist\nلیست افراد بن شده.\n➖➖➖➖➖➖\n#info\nنمایش اطلاعات اصلی گروه\n➖➖➖➖➖➖\n#del [reply|number]\nپاک کردن تعداد پیام های مورد نظر با ریپلی و تعداد!\n➖➖➖➖➖➖\n#topstats\nنشان دادن ۳ نفر از فعال ترین اعضای گروه!\n➖➖➖➖➖➖\n#admins\nنمایش لیست ادمین های گروه\n➖➖➖➖➖➖\n#addword [word]\nفیلتر کردن یک کلمه\n#remword [word]\nحذف کردن کلمه از لیست فیلتر کلمات\n#filterlist\nنشان دادن کلمه های فیلتر شده.\n➖➖➖➖➖➖\n#owner\nنمایش آیدی خریدار گروه.\n➖➖➖➖➖➖\n#modlist\nنمایش لیست ناظم ها.\n➖➖➖➖➖➖\n#bots\nلیست روبات های گروه.\n➖➖➖➖➖➖\n#who\nلیست اعضای گروه در یک فایل متنی.\n(.txt)\n➖➖➖➖➖➖\n#kick [reply|id]\nبلاک کردن و کیک کردن فرد از گروه.\n➖➖➖➖➖➖\n#setwlc [your text]\nتنظیم یک متن به عنوان متن خوشامد گویی\n➖➖➖➖➖➖\n#setwlc rules [your text]\nتنظیم کردن یک متن به عنوان پلام خوشامد گویی + قوانین گروه.\n➖➖➖➖➖➖\n#delwlc\nحذف پیام خوشامد گویی.\n➖➖➖➖➖➖\n#id\nنمایش اطلاعات اکانت شما .\n➖➖➖➖➖➖\n#sticker [reply]\nبا ریپلای کردن عکس میتوانید آن را به استیکر تبدیل کنید!\n#sticker [text]\nتبدیل متن شما به استیکر ...\n#sticker [text] [color]\nتبدیل متن شما به استیکر با تنظیم رنگ ...\n#sticker [text] [color] [font]\n\nتبدیل متن شما به استیکر با تنظیم رنگ و فونت...\n( Supported fonts : [fun|italic|bold|arial] )\n( Supported colors : [black|red|blue|yellow|pink|orange|brown] )\nتبدیل متن شما به استیکر ...\n➖➖➖➖➖➖\n#photo [reply]\nبا ریپلای کردن استیکر میتوانید آن را به عکس تبدیل کنید!\n➖➖➖➖➖➖\n#vc [kalame](زبان ها : Farsi,En)\nتبدیل کلمه به صدا\n➖➖➖➖➖➖\n#weather [اسم شهر]\nدریافت اطلاعات آب و هوای یک منطقه\n➖➖➖➖➖➖\n#me\nنمایش تعداد پیام های ارسال شده از شما\n➖➖➖➖➖➖\n#qr [کلمه]\nتبدیل کلمه،لینک،... شما به بارکد\n➖➖➖➖➖➖\n#write [text]\nطراحی کلمه مورد تظر با 17 فونت!\n➖➖➖➖➖➖\n#calc [2*2]\nمحاسبه جمع تفریق ضرب و...\n➖➖➖➖➖➖\n#porn [text]\nجستجو در 7 سایت +\n➖➖➖➖➖➖\n#time\nدریافت زمان دقیق!\n➖➖➖➖➖➖\n#support \nدریافت لینک گروه پشتیبانی!\n➖➖➖➖➖➖\n#setowner [reply, username]\nست کردن کاربر به عنوان خریدار گروه\n#promote [username|id]\nارتقاء مقام کاربر به ناظم گروه\n#demote [username|id]\nخلع مقام کردن کاربر از سمت ناظم ها\n➖➖➖➖➖➖\n#setname [text]\nتغییر اسم گروه\n#setphoto\nجایگزین کردن عکس گروه\n#setrules [text]\nگذاشتن قوانین برای گروه\n#setabout [text]\nگذاشتن متن توضیحات برای سوپر گروه(این متن در بخش توضیحات گروه هم نمایش داده میشه)\n➖➖➖➖➖➖\n#newlink\nساختن لینک جدید\n#link\nگرفتن لینک\n#linkpv\nارسال لینک گروه در پیوی شما!\n➖➖➖➖➖➖\n#rules\nنمایش قوانین\n➖➖➖➖➖➖\n#lock [links|flood|spam|Arabic|member|rtl|sticker|TgService|contacts|forward|badword|emoji|english|tag|webpage|strict]\nقفل کردن لینک گروها-اسپم-متن و اسم های بزرگ -زبان فارسی-تعداد اعضا-کاراکتر های غیر عادی-استیکر-مخاطبین-فروارد-فوش-اموجی-انگلیسی-تگ-لینک سایت\n\nدقت کنید اگر گذینه اخری strict روشن باشد کاربر از گروه کیک میشود و پیغام پاک میشه در غیر این صورت فقط پیغام پاک میشود\n➖➖➖➖➖➖\n#unlock [links|flood|spam|Arabic|member|rtl|sticker|contacts|TgService|strict|forward|badword|emoji|english]\nباز کردن قفل امکانات بالا\n➖➖➖➖➖➖\n#mute [all|audio|gifs|photo|video|text]\nپاک کردن سریع همه پیغام ها-عکس ها-گیف ها-صدا های ضبط شده-فیلم-متن\n➖➖➖➖➖➖\n#unmute [all|audio|gifs|photo|video|text]\nباز کردن قفل امکانات بالا\n➖➖➖➖➖➖\n#setflood [value]\nگذاشتن value به عنوان حساسیت اسپم\n➖➖➖➖➖➖\n#settings\nنمایش تنظیمات گروه\n➖➖➖➖➖➖\n#muteslist\nنمایش نوع پیغام های سایلنت شده\n*A \"muted\" message type is auto-deleted if posted\n➖➖➖➖➖➖\n#mute [username]\nسایلنت کردن یک کاربر خاص در گروه\nفقط خریدار (owner) میتونه کسیو سایلنت کنه ولی ناظم ها (Mods) میتونند فرد را از سایلنتی در بیاورند\n➖➖➖➖➖➖\n#mutelist\nنمایش لیست افراد سایلنت شده\n➖➖➖➖➖➖\n#clean [rules|about|modlist|mutelist|bots]\nپاک کردن لیست ناظم ها-درباره-لیست سایلنت شده ها-قوانین-بات ها\n➖➖➖➖➖➖\n#log\nبرگرداندن تاریخچه گروه در یک فایل متنی\n➖➖➖➖➖➖\n#version\nنمایش ورژن و ادمین های ربات!\n➖➖➖➖➖➖\n#plist\nدریافت لیست قیمت برای خرید گروه...\n➖➖➖➖➖➖\n#feedback [text]\nشما میتوانید با این دستور نظرات و پیشنهادات خود را برای ما ارسال کنید..."
 			reply_msg(msg.id, text, ok_cb, false)
 		end
 		
-	if matches[1] == 'superhelp.' and is_momod(msg) then
-			text = "Help comments for #Extreme\n----\n1. #Hammer\n#ban\n#banall\n#block\n2.#secret\n#lock [sticker|gif|links|webpage|contacts|emoji|photos|inline|bots|spam]\n#clean [deleted| modlist| silentlist]\n#del [number| reply]\n!setflood [number] {5/20}\n!mute [all | (set time)\nExample: !mute all 8\n!silent [reply | username | id]\n!silentlist\n----\n3.#Group_Control\n!setname\n!setphoto\n!link\n!linkpv\n!newlink\n----\n!promote\n!demote\n!setadmin\n!remadmin\n!id\n------\n4.#BadWords\n!addword {text}\n!delword {text}\n!badword\n5. #personal \n!bot \n!me\nMy [number|id|link|username]\n!plist\n------\n6.#Group_Settings\n#info\n#bots\n#admins\n#kicked\n#who\n#settings\n#rules\n7.#Other | #Fun\n!time\n!feedback\n!topng\n!tophoto\n!togif\n!tovideo\n!toaudio\n!tomkv\n!extreme\n!nerkh\n!sticker [text] [color] [font]\n#calc 2+2\n#weather [city]\n#porn [Text]\n8.#Settings_tgservice\n!setwlc [Your Text]\n#delwlc [Your Text]\n\nAny bugs USE #feedback [text]"
+	if matches[1] == 'superhelp' and is_momod(msg) then
+			text = "➖➖➖➖➖➖\n#ban @username\nاخراج کردن یک فرد از گروه به صورت دائمی\n#unban @username\nخارج کردن یک فرد از حالت اخراج دائمی!\n#banlist\nلیست افراد بن شده.\n➖➖➖➖➖➖\n#info\nنمایش اطلاعات اصلی گروه\n➖➖➖➖➖➖\n#del [reply|number]\nپاک کردن تعداد پیام های مورد نظر با ریپلی و تعداد!\n➖➖➖➖➖➖\n#topstats\nنشان دادن ۳ نفر از فعال ترین اعضای گروه!\n➖➖➖➖➖➖\n#admins\nنمایش لیست ادمین های گروه\n➖➖➖➖➖➖\n#addword [word]\nفیلتر کردن یک کلمه\n#remword [word]\nحذف کردن کلمه از لیست فیلتر کلمات\n#filterlist\nنشان دادن کلمه های فیلتر شده.\n➖➖➖➖➖➖\n#owner\nنمایش آیدی خریدار گروه.\n➖➖➖➖➖➖\n#modlist\nنمایش لیست ناظم ها.\n➖➖➖➖➖➖\n#bots\nلیست روبات های گروه.\n➖➖➖➖➖➖\n#who\nلیست اعضای گروه در یک فایل متنی.\n(.txt)\n➖➖➖➖➖➖\n#kick [reply|id]\nبلاک کردن و کیک کردن فرد از گروه.\n➖➖➖➖➖➖\n#setwlc [your text]\nتنظیم یک متن به عنوان متن خوشامد گویی\n➖➖➖➖➖➖\n#setwlc rules [your text]\nتنظیم کردن یک متن به عنوان پلام خوشامد گویی + قوانین گروه.\n➖➖➖➖➖➖\n#delwlc\nحذف پیام خوشامد گویی.\n➖➖➖➖➖➖\n#id\nنمایش اطلاعات اکانت شما .\n➖➖➖➖➖➖\n#sticker [reply]\nبا ریپلای کردن عکس میتوانید آن را به استیکر تبدیل کنید!\n#sticker [text]\nتبدیل متن شما به استیکر ...\n#sticker [text] [color]\nتبدیل متن شما به استیکر با تنظیم رنگ ...\n#sticker [text] [color] [font]\n\nتبدیل متن شما به استیکر با تنظیم رنگ و فونت...\n( Supported fonts : [fun|italic|bold|arial] )\n( Supported colors : [black|red|blue|yellow|pink|orange|brown] )\nتبدیل متن شما به استیکر ...\n➖➖➖➖➖➖\n#photo [reply]\nبا ریپلای کردن استیکر میتوانید آن را به عکس تبدیل کنید!\n➖➖➖➖➖➖\n#vc [kalame](زبان ها : Farsi,En)\nتبدیل کلمه به صدا\n➖➖➖➖➖➖\n#weather [اسم شهر]\nدریافت اطلاعات آب و هوای یک منطقه\n➖➖➖➖➖➖\n#me\nنمایش تعداد پیام های ارسال شده از شما\n➖➖➖➖➖➖\n#qr [کلمه]\nتبدیل کلمه،لینک،... شما به بارکد\n➖➖➖➖➖➖\n#write [text]\nطراحی کلمه مورد تظر با 17 فونت!\n➖➖➖➖➖➖\n#calc [2*2]\nمحاسبه جمع تفریق ضرب و...\n➖➖➖➖➖➖\n#porn [text]\nجستجو در 7 سایت +\n➖➖➖➖➖➖\n#time\nدریافت زمان دقیق!\n➖➖➖➖➖➖\n#support \nدریافت لینک گروه پشتیبانی!\n➖➖➖➖➖➖\n#setowner [reply, username]\nست کردن کاربر به عنوان خریدار گروه\n#promote [username|id]\nارتقاء مقام کاربر به ناظم گروه\n#demote [username|id]\nخلع مقام کردن کاربر از سمت ناظم ها\n➖➖➖➖➖➖\n#setname [text]\nتغییر اسم گروه\n#setphoto\nجایگزین کردن عکس گروه\n#setrules [text]\nگذاشتن قوانین برای گروه\n#setabout [text]\nگذاشتن متن توضیحات برای سوپر گروه(این متن در بخش توضیحات گروه هم نمایش داده میشه)\n➖➖➖➖➖➖\n#newlink\nساختن لینک جدید\n#link\nگرفتن لینک\n#linkpv\nارسال لینک گروه در پیوی شما!\n➖➖➖➖➖➖\n#rules\nنمایش قوانین\n➖➖➖➖➖➖\n#lock [links|flood|spam|Arabic|member|rtl|sticker|TgService|contacts|forward|badword|emoji|english|tag|webpage|strict]\nقفل کردن لینک گروها-اسپم-متن و اسم های بزرگ -زبان فارسی-تعداد اعضا-کاراکتر های غیر عادی-استیکر-مخاطبین-فروارد-فوش-اموجی-انگلیسی-تگ-لینک سایت\n\nدقت کنید اگر گذینه اخری strict روشن باشد کاربر از گروه کیک میشود و پیغام پاک میشه در غیر این صورت فقط پیغام پاک میشود\n➖➖➖➖➖➖\n#unlock [links|flood|spam|Arabic|member|rtl|sticker|contacts|TgService|strict|forward|badword|emoji|english]\nباز کردن قفل امکانات بالا\n➖➖➖➖➖➖\n#mute [all|audio|gifs|photo|video|text]\nپاک کردن سریع همه پیغام ها-عکس ها-گیف ها-صدا های ضبط شده-فیلم-متن\n➖➖➖➖➖➖\n#unmute [all|audio|gifs|photo|video|text]\nباز کردن قفل امکانات بالا\n➖➖➖➖➖➖\n#setflood [value]\nگذاشتن value به عنوان حساسیت اسپم\n➖➖➖➖➖➖\n#settings\nنمایش تنظیمات گروه\n➖➖➖➖➖➖\n#muteslist\nنمایش نوع پیغام های سایلنت شده\n*A \"muted\" message type is auto-deleted if posted\n➖➖➖➖➖➖\n#mute [username]\nسایلنت کردن یک کاربر خاص در گروه\nفقط خریدار (owner) میتونه کسیو سایلنت کنه ولی ناظم ها (Mods) میتونند فرد را از سایلنتی در بیاورند\n➖➖➖➖➖➖\n#mutelist\nنمایش لیست افراد سایلنت شده\n➖➖➖➖➖➖\n#clean [rules|about|modlist|mutelist|bots]\nپاک کردن لیست ناظم ها-درباره-لیست سایلنت شده ها-قوانین-بات ها\n➖➖➖➖➖➖\n#log\nبرگرداندن تاریخچه گروه در یک فایل متنی\n➖➖➖➖➖➖\n#version\nنمایش ورژن و ادمین های ربات!\n➖➖➖➖➖➖\n#plist\nدریافت لیست قیمت برای خرید گروه...\n➖➖➖➖➖➖\n#feedback [text]\nشما میتوانید با این دستور نظرات و پیشنهادات خود را برای ما ارسال کنید..."
 			reply_msg(msg.id, text, ok_cb, false)
 	end
-	if matches[1] == 'superhelp.' and msg.to.type == "user" then
-			text = "Help comments for #Extreme\n----\n1. #Hammer\n#ban\n#banall\n#block\n2.#secret\n#lock [sticker|gif|links|webpage|contacts|emoji|photos|inline|bots|spam]\n#clean [deleted| modlist| silentlist]\n#del [number| reply]\n!setflood [number] {5/20}\n!mute [all | (set time)\nExample: !mute all 8\n!silent [reply | username | id]\n!silentlist\n----\n3.#Group_Control\n!setname\n!setphoto\n!link\n!linkpv\n!newlink\n----\n!promote\n!demote\n!setadmin\n!remadmin\n!id\n------\n4.#BadWords\n!addword {text}\n!delword {text}\n!badword\n5. #personal \n!bot \n!me\nMy [number|id|link|username]\n!plist\n------\n6.#Group_Settings\n#info\n#bots\n#admins\n#kicked\n#who\n#settings\n#rules\n7.#Other | #Fun\n!time\n!feedback\n!topng\n!tophoto\n!togif\n!tovideo\n!toaudio\n!tomkv\n!extreme\n!nerkh\n!sticker [text] [color] [font]\n#calc 2+2\n#weather [city]\n#porn [Text]\n8.#Settings_tgservice\n!setwlc [Your Text]\n#delwlc [Your Text]\n\nAny bugs USE #feedback [text]"
+	if matches[1] == 'superhelp' and msg.to.type == "user" then
+			text = "➖➖➖➖➖➖\n#ban @username\nاخراج کردن یک فرد از گروه به صورت دائمی\n#unban @username\nخارج کردن یک فرد از حالت اخراج دائمی!\n#banlist\nلیست افراد بن شده.\n➖➖➖➖➖➖\n#info\nنمایش اطلاعات اصلی گروه\n➖➖➖➖➖➖\n#del [reply|number]\nپاک کردن تعداد پیام های مورد نظر با ریپلی و تعداد!\n➖➖➖➖➖➖\n#topstats\nنشان دادن ۳ نفر از فعال ترین اعضای گروه!\n➖➖➖➖➖➖\n#admins\nنمایش لیست ادمین های گروه\n➖➖➖➖➖➖\n#addword [word]\nفیلتر کردن یک کلمه\n#remword [word]\nحذف کردن کلمه از لیست فیلتر کلمات\n#filterlist\nنشان دادن کلمه های فیلتر شده.\n➖➖➖➖➖➖\n#owner\nنمایش آیدی خریدار گروه.\n➖➖➖➖➖➖\n#modlist\nنمایش لیست ناظم ها.\n➖➖➖➖➖➖\n#bots\nلیست روبات های گروه.\n➖➖➖➖➖➖\n#who\nلیست اعضای گروه در یک فایل متنی.\n(.txt)\n➖➖➖➖➖➖\n#kick [reply|id]\nبلاک کردن و کیک کردن فرد از گروه.\n➖➖➖➖➖➖\n#setwlc [your text]\nتنظیم یک متن به عنوان متن خوشامد گویی\n➖➖➖➖➖➖\n#setwlc rules [your text]\nتنظیم کردن یک متن به عنوان پلام خوشامد گویی + قوانین گروه.\n➖➖➖➖➖➖\n#delwlc\nحذف پیام خوشامد گویی.\n➖➖➖➖➖➖\n#id\nنمایش اطلاعات اکانت شما .\n➖➖➖➖➖➖\n#sticker [reply]\nبا ریپلای کردن عکس میتوانید آن را به استیکر تبدیل کنید!\n#sticker [text]\nتبدیل متن شما به استیکر ...\n#sticker [text] [color]\nتبدیل متن شما به استیکر با تنظیم رنگ ...\n#sticker [text] [color] [font]\n\nتبدیل متن شما به استیکر با تنظیم رنگ و فونت...\n( Supported fonts : [fun|italic|bold|arial] )\n( Supported colors : [black|red|blue|yellow|pink|orange|brown] )\nتبدیل متن شما به استیکر ...\n➖➖➖➖➖➖\n#photo [reply]\nبا ریپلای کردن استیکر میتوانید آن را به عکس تبدیل کنید!\n➖➖➖➖➖➖\n#vc [kalame](زبان ها : Farsi,En)\nتبدیل کلمه به صدا\n➖➖➖➖➖➖\n#weather [اسم شهر]\nدریافت اطلاعات آب و هوای یک منطقه\n➖➖➖➖➖➖\n#me\nنمایش تعداد پیام های ارسال شده از شما\n➖➖➖➖➖➖\n#qr [کلمه]\nتبدیل کلمه،لینک،... شما به بارکد\n➖➖➖➖➖➖\n#write [text]\nطراحی کلمه مورد تظر با 17 فونت!\n➖➖➖➖➖➖\n#calc [2*2]\nمحاسبه جمع تفریق ضرب و...\n➖➖➖➖➖➖\n#porn [text]\nجستجو در 7 سایت +\n➖➖➖➖➖➖\n#time\nدریافت زمان دقیق!\n➖➖➖➖➖➖\n#support \nدریافت لینک گروه پشتیبانی!\n➖➖➖➖➖➖\n#setowner [reply, username]\nست کردن کاربر به عنوان خریدار گروه\n#promote [username|id]\nارتقاء مقام کاربر به ناظم گروه\n#demote [username|id]\nخلع مقام کردن کاربر از سمت ناظم ها\n➖➖➖➖➖➖\n#setname [text]\nتغییر اسم گروه\n#setphoto\nجایگزین کردن عکس گروه\n#setrules [text]\nگذاشتن قوانین برای گروه\n#setabout [text]\nگذاشتن متن توضیحات برای سوپر گروه(این متن در بخش توضیحات گروه هم نمایش داده میشه)\n➖➖➖➖➖➖\n#newlink\nساختن لینک جدید\n#link\nگرفتن لینک\n#linkpv\nارسال لینک گروه در پیوی شما!\n➖➖➖➖➖➖\n#rules\nنمایش قوانین\n➖➖➖➖➖➖\n#lock [links|flood|spam|Arabic|member|rtl|sticker|TgService|contacts|forward|badword|emoji|english|tag|webpage|strict]\nقفل کردن لینک گروها-اسپم-متن و اسم های بزرگ -زبان فارسی-تعداد اعضا-کاراکتر های غیر عادی-استیکر-مخاطبین-فروارد-فوش-اموجی-انگلیسی-تگ-لینک سایت\n\nدقت کنید اگر گذینه اخری strict روشن باشد کاربر از گروه کیک میشود و پیغام پاک میشه در غیر این صورت فقط پیغام پاک میشود\n➖➖➖➖➖➖\n#unlock [links|flood|spam|Arabic|member|rtl|sticker|contacts|TgService|strict|forward|badword|emoji|english]\nباز کردن قفل امکانات بالا\n➖➖➖➖➖➖\n#mute [all|audio|gifs|photo|video|text]\nپاک کردن سریع همه پیغام ها-عکس ها-گیف ها-صدا های ضبط شده-فیلم-متن\n➖➖➖➖➖➖\n#unmute [all|audio|gifs|photo|video|text]\nباز کردن قفل امکانات بالا\n➖➖➖➖➖➖\n#setflood [value]\nگذاشتن value به عنوان حساسیت اسپم\n➖➖➖➖➖➖\n#settings\nنمایش تنظیمات گروه\n➖➖➖➖➖➖\n#muteslist\nنمایش نوع پیغام های سایلنت شده\n*A \"muted\" message type is auto-deleted if posted\n➖➖➖➖➖➖\n#mute [username]\nسایلنت کردن یک کاربر خاص در گروه\nفقط خریدار (owner) میتونه کسیو سایلنت کنه ولی ناظم ها (Mods) میتونند فرد را از سایلنتی در بیاورند\n➖➖➖➖➖➖\n#mutelist\nنمایش لیست افراد سایلنت شده\n➖➖➖➖➖➖\n#clean [rules|about|modlist|mutelist|bots]\nپاک کردن لیست ناظم ها-درباره-لیست سایلنت شده ها-قوانین-بات ها\n➖➖➖➖➖➖\n#log\nبرگرداندن تاریخچه گروه در یک فایل متنی\n➖➖➖➖➖➖\n#version\nنمایش ورژن و ادمین های ربات!\n➖➖➖➖➖➖\n#plist\nدریافت لیست قیمت برای خرید گروه...\n➖➖➖➖➖➖\n#feedback [text]\nشما میتوانید با این دستور نظرات و پیشنهادات خود را برای ما ارسال کنید..."
 			reply_msg(msg.id, text, ok_cb, false)
 	end
 
@@ -2378,8 +2377,8 @@ return {
     "^[#!/]([Kk]ick) (.*)",
 	"^[#!/]([Kk]ick)",
 	"^[#!/]([Uu]pchat)$",
-	"^[#!/]([Ii][Dd])$",
-	"^[#!/]([Ii][Dd]) (.*)$",
+	--"^[#!/]([Ii][Dd])$",
+	--"^[#!/]([Ii][Dd]) (.*)$",
 	"^[#!/]([Kk]ickme)$",
 	"^[#!/]([Kk]ick) (.*)$",
 	"^[#!/]([Nn]ewlink)$",
@@ -2405,16 +2404,16 @@ return {
 	"^[#!/]([Ll]ock) (.*)$",
 	"^[#!/]([Ss]uperhelp)$",
 	"^[#!/]([Uu]nlock) (.*)$",
-	"^[#!/]([Ss]ilent) ([^%s]+)$",
+	"^[#!/]([Mm]ute) ([^%s]+)$",
 	"^[#!/]([Uu]nmute) ([^%s]+)$",
-	"^[#!/]([Ss]ilent)$",
-	"^[#!/]([Ss]ilent) (.*)$",
+	"^[#!/]([Mm]ute)$",
+	"^[#!/]([Mm]ute) (.*)$",
 	"^[#!/]([Pp]ublic) (.*)$",
 	"^[#!/]([Ss]ettings)$",
 	"^[#!/]([Rr]ules)$",
 	"^[#!/]([Ss]etflood) (%d+)$",
 	"^[#!/]([Cc]lean) (.*)$",
-	"^[#!/]([Hh]elp)$",
+	--"^[#!/]([Hh]elp)$",
 	"^[#!/]([Mm]uteslist)$",
 	"^[#!/]([Mm]utelist)$",
 	"^([Aa]dd)$",
@@ -2430,8 +2429,8 @@ return {
     "^([Kk]ick) (.*)",
 	"^([Kk]ick)",
 	"^([Uu]pchat)$",
-	"^([Ii][Dd])$",
-	"^([Ii][Dd]) (.*)$",
+	--"^([Ii][Dd])$",
+	--"^([Ii][Dd]) (.*)$",
 	"^([Kk]ickme)$",
 	"^([Kk]ick) (.*)$",
 	"^([Nn]ewlink)$",
@@ -2455,18 +2454,18 @@ return {
 	"^([Ss]etusername) (.*)$",
 	"^([Dd]el)$",
 	"^([Ll]ock) (.*)$",
-	"^([Ss]uperhelp)$",
+	--"^([Ss]uperhelp)$",
 	"^([Uu]nlock) (.*)$",
-	"^([Ss]ilent) ([^%s]+)$",
+	"^([Mm]ute) ([^%s]+)$",
 	"^([Uu]nmute) ([^%s]+)$",
-	"^([Ss]ute)$",
-	"^([Ss]ilent) (.*)$",
+	"^([Mm]ute)$",
+	"^([Mm]ute) (.*)$",
 	"^([Pp]ublic) (.*)$",
 	"^([Ss]ettings)$",
 	"^([Rr]ules)$",
 	"^([Ss]etflood) (%d+)$",
 	"^([Cc]lean) (.*)$",
-	"^([Hh]elp)$",
+	--"^([Hh]elp)$",
 	"^([Mm]uteslist)$",
 	"^([Mm]utelist)$",
     "([Hh][Tt][Tt][Pp][Ss]://[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/[Jj][Oo][Ii][Nn][Cc][Hh][Aa][Tt]/%S+)",
