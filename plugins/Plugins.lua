@@ -26,13 +26,13 @@ local function list_all_plugins(only_enabled)
   local nsum = 0
   for k, v in pairs( plugins_names( )) do
     --  ? enabled, ?? disabled
-    local status = '|Disable|'
+    local status = '<code>|Disable|</code>'
     nsum = nsum+1
     nact = 0
     -- Check if is enabled
     for k2, v2 in pairs(_config.enabled_plugins) do
       if v == v2..'.lua' then 
-        status = '|Enable|' 
+        status = '<code>|Enable|</code>' 
       end
       nact = nact+1
     end
@@ -42,7 +42,7 @@ local function list_all_plugins(only_enabled)
       text = text..nsum..'. '..v..'  '..status..'\n'
     end
   end
-  local text = text..'\nBot Version > 6.9'
+  local text = text..'\n<b>Blue Version > 6.9</b>'
   return text
 end
 
@@ -51,13 +51,13 @@ local function list_plugins(only_enabled)
   local nsum = 0
   for k, v in pairs( plugins_names( )) do
     --  ? enabled, ?? disabled
-    local status = '|Disable|'
+    local status = '<code>|Disable|</code>'
     nsum = nsum+1
     nact = 0
     -- Check if is enabled
     for k2, v2 in pairs(_config.enabled_plugins) do
       if v == v2..'.lua' then 
-        status = '|Enable|' 
+        status = '<code>|Enable|</code>' 
       end
       nact = nact+1
     end
@@ -67,7 +67,7 @@ local function list_plugins(only_enabled)
       text = text..v..'  '..status..'\n'
     end
   end
-  local text = text..'\nBot Version > 6.9'
+  local text = text..'\n<b>Blue Version > 6.9</B>'
   return text
 end
 
@@ -93,7 +93,7 @@ local function enable_plugin( plugin_name )
     -- Reload the plugins
     return reload_plugins( )
   else
-    return '*Error 404\n> (Plugin #'..plugin_name..' Not Found)'
+    return '<b>*Error 404\n> (Plugin #'..plugin_name..' Not Found)</b>'
   end
 end
 
