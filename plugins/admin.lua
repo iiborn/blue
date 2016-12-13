@@ -172,24 +172,24 @@ local function run(msg,matches)
     if matches[1] == "markread" then
     	if matches[2] == "on" then
     		redis:set("bot:markread", "on")
-    		return reply_msg(msg.id, "Done \nMark read > #On", ok_cb, false)
+    		return reply_msg(msg.id, "<b>Done </b>\n<b>Mark read > </b>#On", ok_cb, false)
     	end
     	if matches[2] == "off" then
     		redis:del("bot:markread")
-    		return reply_msg(msg.id, "Done \nMark read > #Off", ok_cb, false)
+    		return reply_msg(msg.id, "<b>Done</b> \n<b>Mark read > </b>#Off", ok_cb, false)
     	end
     	return
     end
     if matches[1] == "pm" then
     	local text = "Message From "..(msg.from.username or msg.from.last_name).."\n\nMessage : "..matches[3]
     	send_large_msg("user#id"..matches[2],text)
-    	return reply_msg(msg.id, "Message has been sent", ok_cb, false)
+    	return reply_msg(msg.id, "<b>Done</b>", ok_cb, false)
     end
     
     if matches[1] == "import" then--join by group link
     	local hash = parsed_url(matches[2])
     	import_chat_link(hash,ok_cb,false)
-		return reply_msg(msg.id, "Done!", ok_cb, false)
+		return reply_msg(msg.id, "<b>Done!</b>", ok_cb, false)
     end
     if matches[1] == "contactlist" then
 	    if not is_sudo(msg) then-- Sudo only
@@ -221,10 +221,10 @@ end
     if matches[1] == "whois" then
       user_info("user#id"..matches[2],user_info_callback,{msg=msg})
     end
-	if matches[1] == 'reload' then
+	if matches[1]:lower() == 'reload' then
 		receiver = get_receiver(msg)
 		reload_plugins(true)
-		return reply_msg(msg.id, "#BOT Reloaded By |"..msg.from.id.."| \n#All Plugins Reloaded! \n#All Changes Succesfully Installed.", ok_cb, false)
+		return reply_msg(msg.id, "<b>#BOT Reloaded By</b> |"..msg.from.id.."| \n<b>#All Plugins Reloaded!</b> \n<code>No Bug Founded</code>\n<b>#All Changes Succesfully Installed.</b>", ok_cb, false)
 	end
 	if matches[1] == 'updateid' then
 		local data = load_data(_config.moderation.data)
