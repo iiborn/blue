@@ -91,10 +91,10 @@ local function bot_stats()
   return text
 end
 local function run(msg, matches)
-  if matches[1]:lower() == 'extreme' then -- Put everything you like :)
+  if matches[1]:lower() == 'blue' then -- Put everything you like :)
     local about = _config.about_text
     local name = user_print_name(msg.from)
-    savelog(msg.to.id, name.." ["..msg.from.id.."] used /extreme ")
+    savelog(msg.to.id, name.." ["..msg.from.id.."] used /blue ")
     return about
   end 
   if matches[1]:lower() == "statslist" then
@@ -106,7 +106,7 @@ local function run(msg, matches)
     savelog(msg.to.id, name.." ["..msg.from.id.."] requested group stats ")
     return chat_stats2(chat_id)
   end
-  if matches[1]:lower() == "point" then
+  if matches[1]:lower() == "stats" then
     if not matches[2] then
       if not is_momod(msg) then
         return "*You're Not Allowed."
@@ -121,7 +121,7 @@ local function run(msg, matches)
         return
       end
     end
-    if matches[2] == "extreme" then
+    if matches[2] == "blue" then
       if not is_sudo(msg) then
         return "*You're Not Allowed."
       else
@@ -143,11 +143,11 @@ return {
     "^[#!/]([Ss]tats)$",
     "^[#!/]([Ss]tatslist)$",
     "^[#!/]([Ss]tats) (group) (%d+)",
-    "^[#!/]([Pp]oint) (extreme)",
+    "^[#!/]([Ss]tats) (blue)",
     "^([Ss]tats)$",
     "^([Ss]tatslist)$",
     "^([Ss]tats) (group) (%d+)",
-    "^([Pp]oint) (extreme)",
+    "^([Ss]tats) (blue)",
     }, 
   run = run
 }
