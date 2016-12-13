@@ -1,4 +1,4 @@
-# [Extreme](https://telegram.me/Extremerobot)
+# [Blue](https://telegram.me/bluerobo) > [Developer](https://telegram.me/iborn)
 
 **An advanced and powerful administration bot based on [yagop/telegram-bot](https://github.com/yagop/telegram-bot) licensed under the [GNU General Public License](https://github.com/iiborn/M/blob/supergroups/LICENSE)**.
 
@@ -270,5 +270,4 @@ Create a realm using the `!createrealm` command.
 Check out this [tutorial by Telegram Geeks](http://telegramgeeks.com/2016/01/teleseed-tutorial/) for further assistance with setup and installation.
 
 [#MasiH (developer)](https://telegram.me/iborn)
-[MR_PU (manager)](https://telegram.me/MR_PU)
 
