@@ -1,10 +1,10 @@
 do
 
 local function run(msg, matches)
-  if matches[1] == 'bot' then
+  if matches[1]:lower() == 'rank' then
     if is_sudo(msg) then
-    send_document(get_receiver(msg), "./data/me/extreme1.webp", ok_cb, false)
-      return "Extreme\n---------------------------------------------\n|An Advanced Bot Based On #LUA|\n\n> Bot Number : +63 938 064 1144\n sudo: @iborn, @ibornbot | @dragon_dev, @dragon_devRobot\nChannel : @extreme_ch"
+    send_document(get_receiver(msg), "./data/me/extreme1a.webp", ok_cb, false)
+      return "You Are Sudo"
     elseif is_admin1(msg) then
     send_document(get_receiver(msg), "./data/me/admin.webp", ok_cb, false)
       return "You're Admin"
@@ -23,8 +23,8 @@ end
 
 return {
   patterns = {
-    "^[#!/]([Bb]ot)$",
-    "^([Bb]ot)$"
+    "^[#!/]([Rr]ank)$",
+    "^([Rr]ank)$"
     },
   run = run
 }
