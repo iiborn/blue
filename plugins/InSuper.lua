@@ -46,7 +46,7 @@ local function check_member_super(cb_extra, success, result)
       data[tostring(groups)][tostring(msg.to.id)] = msg.to.id
       save_data(_config.moderation.data, data)
 	  local text = '<b>Added</b>!'
-      return reply_msg(msg.id, text, ok_cb, false)
+      return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
     end
   end
 end
@@ -70,7 +70,7 @@ local function check_member_superrem(cb_extra, success, result)
       data[tostring(groups)][tostring(msg.to.id)] = nil
       save_data(_config.moderation.data, data)
 	  local text = '<b>Removed</b>'
-      return reply_msg(msg.id, text, ok_cb, false)
+      return send_api_msg(msg, get_receiver_api(msg), text, true, 'md')
     end
   end
 end
